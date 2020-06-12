@@ -29,11 +29,11 @@ class NetworkBoundResource<ResultType, RequestType, T> {
 
   NetworkBoundResource(this._apiParser,
       {@required this.saveCallResult,
-        @required this.shouldFetch,
-        @required this.loadFromCache,
-        @required this.createCall,
-        this.fetchFailed,
-        this.paginationCall})
+      @required this.shouldFetch,
+      @required this.loadFromCache,
+      @required this.createCall,
+      this.fetchFailed,
+      this.paginationCall})
       : assert(saveCallResult != null),
         assert(shouldFetch != null),
         assert(loadFromCache != null),
@@ -73,7 +73,8 @@ class NetworkBoundResource<ResultType, RequestType, T> {
         if (parserResponse.pagination != null) {
           paginationCall(parserResponse.pagination);
         }
-        _resourceStream.add(Resource<ResultType, String>.success(await saveCallResult(parserResponse.data)));
+        _resourceStream.add(Resource<ResultType, String>.success(await saveCallResult(parserResponse.data),
+            pagination: parserResponse.pagination));
       } else if (parserResponse is ApiParserEmptyResponse<RequestType, T>) {
         _resourceStream.add(Resource<ResultType, String>.success(await saveCallResult(null)));
       } else {
