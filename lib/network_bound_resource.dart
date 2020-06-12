@@ -4,7 +4,8 @@ import 'package:api_error_parser/api_error_parser.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:network_utils/resource.dart';
 
-typedef SaveCallResult<ResultType, RequestType> = Future<ResultType> Function(RequestType item);
+typedef SaveCallResult<ResultType, RequestType> = Future<ResultType> Function(
+    RequestType item);
 
 typedef ShouldFetch<ResultType> = bool Function(ResultType data);
 
@@ -29,11 +30,11 @@ class NetworkBoundResource<ResultType, RequestType, T> {
 
   NetworkBoundResource(this._apiParser,
       {@required this.saveCallResult,
-        @required this.shouldFetch,
-        @required this.loadFromCache,
-        @required this.createCall,
-        this.fetchFailed,
-        this.paginationCall})
+      @required this.shouldFetch,
+      @required this.loadFromCache,
+      @required this.createCall,
+      this.fetchFailed,
+      this.paginationCall})
       : assert(saveCallResult != null),
         assert(shouldFetch != null),
         assert(loadFromCache != null),
@@ -68,24 +69,31 @@ class NetworkBoundResource<ResultType, RequestType, T> {
   void _fetchFromNetwork() async {
     try {
       final apiResponse = await createCall();
-      final ApiParserResponse<RequestType, T> parserResponse = _apiParser.parse(apiResponse);
+      final ApiParserResponse<RequestType, T> parserResponse =
+          _apiParser.parse(apiResponse);
       if (parserResponse is ApiParserSuccessResponse<RequestType, T>) {
         if (parserResponse.pagination != null) {
           paginationCall(parserResponse.pagination);
         }
-        _resourceStream.add(Resource<ResultType, String>.success(await saveCallResult(parserResponse.data)));
+        _resourceStream.add(Resource<ResultType, String>.success(
+            await saveCallResult(parserResponse.data),
+            pagination: parserResponse.pagination));
       } else if (parserResponse is ApiParserEmptyResponse<RequestType, T>) {
-        _resourceStream.add(Resource<ResultType, String>.success(await saveCallResult(null)));
+        _resourceStream.add(
+            Resource<ResultType, String>.success(await saveCallResult(null)));
       } else {
         fetchFailed();
-        _resourceStream.add(Resource<ResultType, String>.errorList(null, (parserResponse as ApiParserErrorResponse).errors));
+        _resourceStream.add(Resource<ResultType, String>.errorList(
+            null, (parserResponse as ApiParserErrorResponse).errors));
       }
     } catch (e) {
       fetchFailed();
       if (e is Error) {
-        _resourceStream.add(Resource<ResultType, String>.error(null, e.toString()));
+        _resourceStream
+            .add(Resource<ResultType, String>.error(null, e.toString()));
       } else {
-        _resourceStream.add(Resource<ResultType, String>.errorException(null, e));
+        _resourceStream
+            .add(Resource<ResultType, String>.errorException(null, e));
       }
     }
   }

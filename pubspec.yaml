@@ -1,6 +1,7 @@
 name: network_utils
 description: A new Flutter package.
 version: 0.0.2
+repository: https://github.com/velmie/dart_network_utils
 homepage: https://www.velmie.com/
 
 environment:
