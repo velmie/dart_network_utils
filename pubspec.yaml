@@ -5,13 +5,13 @@ repository: https://github.com/velmie/dart_network_utils
 homepage: https://www.velmie.com/
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  api_error_parser: ^0.0.4
-  rxdart: ^0.24.1
+  api_error_parser: 0.1.0
+  rxdart: 0.27.7
 
 dev_dependencies:
   flutter_test:
