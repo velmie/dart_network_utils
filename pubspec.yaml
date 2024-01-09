@@ -1,6 +1,6 @@
 name: network_utils
 description: A new Flutter package.
-version: 0.0.2
+version: 0.1.0
 repository: https://github.com/velmie/dart_network_utils
 homepage: https://www.velmie.com/
 
@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  api_error_parser: 0.1.0
-  rxdart: 0.27.7
+  api_error_parser: ^0.1.0
+  rxdart: ^0.27.7
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,3 @@
-## [0.0.2] - TODO: Add release date.
+## [0.1.0] - TODO: Add release date.
 
-* added a callback for pagination
+updated to flutter 3+
