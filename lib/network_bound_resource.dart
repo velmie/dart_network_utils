@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:api_error_parser/api_error_parser.dart';
 import 'package:network_utils/resource.dart';
 
-typedef SaveCallResult<ResultType, RequestType> = Future<ResultType> Function(RequestType item);
+typedef SaveCallResult<ResultType, RequestType> = Future<ResultType> Function(
+    RequestType item);
 
 typedef ShouldFetch<ResultType> = bool Function(ResultType data);
 
@@ -27,16 +28,17 @@ class NetworkBoundResource<ResultType, RequestType, T> {
   late StreamController _resourceStream;
 
   NetworkBoundResource(
-      this._apiParser, {
-        required this.createCall,
-        required this.shouldFetch,
-        required this.saveCallResult,
-        this.loadFromCache,
-        this.fetchFailed,
-        this.paginationCall,
-      }) {
+    this._apiParser, {
+    required this.createCall,
+    required this.shouldFetch,
+    required this.saveCallResult,
+    this.loadFromCache,
+    this.fetchFailed,
+    this.paginationCall,
+  }) {
     fetchFailed ??= () {};
-    _resourceStream = StreamController<Resource<ResultType, T>>(onListen: _startListenStream);
+    _resourceStream =
+        StreamController<Resource<ResultType, T>>(onListen: _startListenStream);
   }
 
   void _startListenStream() {
@@ -80,16 +82,19 @@ class NetworkBoundResource<ResultType, RequestType, T> {
         _resourceStream.add(
           Resource<ResultType, String>.errorList(
             null,
-            (parserResponse as ApiParserErrorResponse<RequestType, String>).errors,
+            (parserResponse as ApiParserErrorResponse<RequestType, String>)
+                .errors,
           ),
         );
       }
     } on Exception catch (e) {
       fetchFailed!();
       if (e is Error) {
-        _resourceStream.add(Resource<ResultType, String>.error(null, e.toString()));
+        _resourceStream
+            .add(Resource<ResultType, String>.error(null, e.toString()));
       } else {
-        _resourceStream.add(Resource<ResultType, String>.errorException(null, e));
+        _resourceStream
+            .add(Resource<ResultType, String>.errorException(null, e));
       }
     }
   }

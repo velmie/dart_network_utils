@@ -5,10 +5,10 @@ packages:
     dependency: "direct main"
     description:
       name: api_error_parser
-      sha256: "9ff94e0281c1a40213b0790e5d47a695ecc015510e9ce40c82097711af19ed5b"
+      sha256: ecc2f1d04e3d808fb5919b1237c656384eab7acf7fbc866cf81dfc3a3fbf70a4
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.2"
   async:
     dependency: transitive
     description:
