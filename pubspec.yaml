@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  api_error_parser: ^0.1.0
+  api_error_parser: ^0.2.2
   rxdart: ^0.27.7
 
 dev_dependencies:
